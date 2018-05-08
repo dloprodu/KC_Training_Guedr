@@ -3,4 +3,8 @@
     <string name="offline_image_description">Predicción del tiempo offline</string>
     <string name="european_system_button">Sistema Europeo</string>
     <string name="american_system_button">Systema Americano</string>
+    <string name="descripcion_grafica_tiempo">Descripción gráfica del tiempo</string>
+    <string name="max_temp_format">Max: %.2fº</string>
+    <string name="min_temp_format">Min: %.2fº</string>
+    <string name="humidity_temp_format">Humedad: %.0fº</string>
 </resources>
