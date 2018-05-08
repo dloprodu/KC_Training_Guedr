@@ -7,11 +7,17 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     val TAG = MainActivity::class.java.canonicalName
-    var forecastImage: ImageView? = null
+    //var forecastImage: ImageView? = null
+    //lateinit var forecastImage: ImageView
+
+    val forecastImage by lazy {
+        findViewById<ImageView>(R.id.forecastImage)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,14 +25,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         // val numero = savedInstanceState?.getInt("Numero")
 
-        val europeanButton = findViewById(R.id.european_system_button) as? Button
-        val americanButton = findViewById(R.id.american_system_button) as? Button
+        // val europeanButton = findViewById(R.id.european_system_button) as? Button
+        // val americanButton = findViewById(R.id.american_system_button) as? Button
         // val europeanButton = findViewById<Button>(R.id.european_system_button)
         // var europeanButton: Button = findViewById(R.id.european_system_button)
-        forecastImage = findViewById(R.id.forecastImage) as? ImageView
+        // forecastImage = findViewById(R.id.forecastImage) as? ImageView
 
-        europeanButton?.setOnClickListener(this)
-        americanButton?.setOnClickListener(this)
+        //europeanButton?.setOnClickListener(this)
+        //americanButton?.setOnClickListener(this)
+
+        /*
+        europeanButton?.setOnClickListener {
+            forecastImage?.setImageResource(R.drawable.offline_weather)
+        }
+
+        americanButton?.setOnClickListener {
+            forecastImage?.setImageResource(R.drawable.offline_weather2)
+        }
+        */
+
+        // synthetic view binding (kotlin extensions)
+        european_system_button.setOnClickListener {
+            forecastImage?.setImageResource(R.drawable.offline_weather)
+        }
+
+        american_system_button.setOnClickListener {
+            forecastImage?.setImageResource(R.drawable.offline_weather2)
+        }
 
         Log.v(TAG,"Han llamado a onCreate" )
     }
