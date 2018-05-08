@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- FrameLayout, LinearLayout (android:orientation) -->
+<!--
+FrameLayout,
+LinearLayout (android:orientation)
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -28,16 +31,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:text="Botón 1" />
+        android:text="Botón X" />
 
     <Button
         android:layout_width="240dp"
         android:layout_height="60dp"
         android:layout_gravity="bottom|center"
-        android:text="Botón 2" />
+        android:text="Botón Y" />
     -->
 
     <ImageView
+        android:id="@+id/forecastImage"
+        android:contentDescription="@string/offline_image_description"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -50,18 +55,20 @@
         android:layout_height="wrap_content"
         android:layout_weight="0">
         <Button
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:text="Botón 3" />
-
-        <Button
+            android:id="@+id/european_system_button"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:text="Botón 4" />
+            android:text="@string/european_system_button" />
+
+        <Button
+            android:id="@+id/american_system_button"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:text="@string/american_system_button" />
     </LinearLayout>
 
 </LinearLayout>

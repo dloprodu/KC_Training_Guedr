@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Guedr</string>
+    <string name="offline_image_description">Predicción del tiempo offline</string>
+    <string name="european_system_button">Sistema Europeo</string>
+    <string name="american_system_button">Systema Americano</string>
 </resources>
