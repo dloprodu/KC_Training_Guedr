@@ -1,5 +1,9 @@
 package io.keepcoding.guedrbootamp6
 
+enum class TemperatureUnit {
+    CELSIUS,
+    FAHRENHEIT
+}
 
 data class Forecast(
     val maxTemp: Float,
@@ -7,6 +11,7 @@ data class Forecast(
     val humidity: Float,
     val description: String,
     val icon: Int) {
+
 
 
 }
