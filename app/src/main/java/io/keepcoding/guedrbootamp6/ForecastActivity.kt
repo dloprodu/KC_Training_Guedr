@@ -1,9 +1,12 @@
 package io.keepcoding.guedrbootamp6
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_forecast.*
@@ -91,6 +94,25 @@ class ForecastActivity : AppCompatActivity(), View.OnClickListener {
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState?.putInt("Numero", 3)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_forecast, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_show_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onClick(v: View?) {
