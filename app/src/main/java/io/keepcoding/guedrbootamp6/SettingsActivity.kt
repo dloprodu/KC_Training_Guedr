@@ -1,5 +1,6 @@
 package io.keepcoding.guedrbootamp6
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -31,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
         ok_btn.setOnClickListener { acceptSettings() }
         cancel_btn.setOnClickListener { cancelSettings() }
 
-        if (initialUnits == TemperatureUnit.CELSIUS.ordinal) {
+        if (initialUnits == TemperatureUnit.CELSIUS) {
             units_rg.check(R.id.cesius_rb)
         } else {
             units_rg.check(R.id.farenheit_rb)
@@ -39,10 +40,21 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun cancelSettings() {
+        setResult(Activity.RESULT_CANCELED)
         finish()
     }
 
     private fun acceptSettings() {
+        // Creamos los datos de regreso, en este caso las unidades elegidas
+        val returnIntent = Intent()
+        when (units_rg.checkedRadioButtonId) {
+            R.id.cesius_rb -> returnIntent.putExtra(EXTRA_UNITS, TemperatureUnit.CELSIUS)
+            R.id.farenheit_rb -> returnIntent.putExtra(EXTRA_UNITS, TemperatureUnit.FAHRENHEIT)
+        }
+        setResult(Activity.RESULT_OK, returnIntent)
+
+        // Finalizamos la actividad para volver a la anterior
         finish()
     }
+
 }

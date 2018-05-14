@@ -4,11 +4,13 @@
     <string name="european_system_button">Sistema Europeo</string>
     <string name="american_system_button">Systema Americano</string>
     <string name="descripcion_grafica_tiempo">Descripción gráfica del tiempo</string>
-    <string name="max_temp_format">Max: %.2fº</string>
-    <string name="min_temp_format">Min: %.2fº</string>
+    <string name="max_temp_format">Max: %.2f %s</string>
+    <string name="min_temp_format">Min: %.2f %s</string>
     <string name="humidity_temp_format">Humedad: %.0fº</string>
     <string name="select_units">Selecciona las unidades</string>
     <string name="celsius_units">Unidades Celsius</string>
     <string name="fahrenheit_units">Unidades Fahrenheits</string>
     <string name="settings">Ajustes</string>
+    <string name="user_selects_celsius">El usuario ha seleccionado celsius</string>
+    <string name="user_select_fahrenhiet">El usuario ha seleccionado fahrenheits</string>
 </resources>
