@@ -1,10 +1,12 @@
-package io.keepcoding.guedrbootamp6
+package io.keepcoding.guedrbootamp6.activity
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import io.keepcoding.guedrbootamp6.R
+import io.keepcoding.guedrbootamp6.model.TemperatureUnit
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity() {

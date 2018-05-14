@@ -1,16 +1,18 @@
-package io.keepcoding.guedrbootamp6
+package io.keepcoding.guedrbootamp6.model
+
+import java.io.Serializable
 
 enum class TemperatureUnit {
     CELSIUS,
     FAHRENHEIT
 }
 
-data class Forecast(
-    private val maxTemp: Float,
-    private val minTemp: Float,
-    val humidity: Float,
-    val description: String,
-    val icon: Int) {
+data class Forecast (
+        private val maxTemp: Float,
+        private val minTemp: Float,
+        val humidity: Float,
+        val description: String,
+        val icon: Int): Serializable {
 
     protected fun toFahrenheit(celsius: Float) = celsius * 1.8f + 32
 

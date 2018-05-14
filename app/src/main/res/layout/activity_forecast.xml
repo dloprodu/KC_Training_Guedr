@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ForecastActivity">
+    tools:context=".activity.ForecastActivity">
 
     <fragment
         android:id="@+id/forecast_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="io.keepcoding.guedrbootamp6.ForecastFragment" />
+        android:name="io.keepcoding.guedrbootamp6.fragment.ForecastFragment" />
 
 </FrameLayout>

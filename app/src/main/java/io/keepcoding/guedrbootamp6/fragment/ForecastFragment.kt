@@ -1,4 +1,4 @@
-package io.keepcoding.guedrbootamp6
+package io.keepcoding.guedrbootamp6.fragment
 
 import android.app.Activity
 import android.app.Fragment
@@ -7,9 +7,29 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
 import android.view.*
+import io.keepcoding.guedrbootamp6.R
+import io.keepcoding.guedrbootamp6.activity.SettingsActivity
+import io.keepcoding.guedrbootamp6.model.City
+import io.keepcoding.guedrbootamp6.model.Forecast
+import io.keepcoding.guedrbootamp6.model.TemperatureUnit
 import kotlinx.android.synthetic.main.fragment_forecast.*
 
 class ForecastFragment: Fragment() {
+
+    companion object {
+        val ARG_CITY = "ARG_CITY"
+
+        fun newInstance(city: City): Fragment {
+            val fragment = ForecastFragment()
+
+            val arguments = Bundle()
+            arguments.putSerializable(ARG_CITY, city)
+
+            fragment.arguments = arguments
+
+            return fragment
+        }
+    }
 
     val REQUEST_SETTINGS = 1
     val PREFERENCE_UNITS = "UNITS"
@@ -55,12 +75,10 @@ class ForecastFragment: Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        forecast = Forecast(
-                25f,
-                10f,
-                35f,
-                "Soleado con alguna nube",
-                R.drawable.ico_01)
+        if (arguments != null) {
+            val city: City = arguments.getSerializable(ARG_CITY) as City
+            forecast = city.forecast
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

@@ -51,7 +51,7 @@ LinearLayout (android:orientation)
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ForecastFragment">
+    tools:context=".fragment.ForecastFragment">
 
     <ImageView
         android:id="@+id/forecast_image"

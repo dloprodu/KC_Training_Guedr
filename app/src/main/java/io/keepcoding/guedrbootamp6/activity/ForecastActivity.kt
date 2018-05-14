@@ -1,18 +1,10 @@
-package io.keepcoding.guedrbootamp6
+package io.keepcoding.guedrbootamp6.activity
 
-import android.app.Activity
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.preference.PreferenceManager
-import android.support.design.widget.Snackbar
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_forecast.*
+import io.keepcoding.guedrbootamp6.R
 
 class ForecastActivity : AppCompatActivity() {
 

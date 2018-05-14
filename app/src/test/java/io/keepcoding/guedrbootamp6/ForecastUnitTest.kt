@@ -1,5 +1,7 @@
 package io.keepcoding.guedrbootamp6
 
+import io.keepcoding.guedrbootamp6.model.Forecast
+import io.keepcoding.guedrbootamp6.model.TemperatureUnit
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
