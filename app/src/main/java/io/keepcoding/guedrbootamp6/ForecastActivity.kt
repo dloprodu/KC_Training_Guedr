@@ -20,37 +20,6 @@ class ForecastActivity : AppCompatActivity() {
         val TAG = ForecastActivity::class.java.canonicalName
     }
 
-    val REQUEST_SETTINGS = 1
-
-    val PREFERENCE_UNITS = "UNITS"
-
-    //var forecastImage: ImageView? = null
-    //lateinit var forecastImage: ImageView
-    //val forecastImage by lazy {
-    //    findViewById<ImageView>(R.id.forecastImage)
-    //}
-
-    var forecast: Forecast? = null
-        set(value) {
-            field = value
-
-            if (value != null) {
-                forecast_image.setImageResource(value.icon)
-                forecast_description.text = value.description
-
-                updateTemperatureView()
-
-                humidity.text = getString(R.string.humidity_temp_format, value.humidity)
-            }
-        }
-
-    val units: TemperatureUnit
-        get() = when(PreferenceManager.getDefaultSharedPreferences(this).getInt(PREFERENCE_UNITS, TemperatureUnit.CELSIUS.ordinal)) {
-            TemperatureUnit.CELSIUS.ordinal -> TemperatureUnit.CELSIUS
-            else                            -> TemperatureUnit.FAHRENHEIT
-        }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forecast)
@@ -96,13 +65,6 @@ class ForecastActivity : AppCompatActivity() {
         }
         */
 
-        forecast = Forecast(
-                25f,
-                10f,
-                35f,
-                "Soleado con alguna nube",
-                R.drawable.ico_01)
-
         Log.v(TAG,"Han llamado a onCreate" )
     }
 
@@ -111,6 +73,8 @@ class ForecastActivity : AppCompatActivity() {
         outState?.putInt("Numero", 3)
     }
 
+    /* Moved to ForecastFragment
+     *
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.activity_forecast, menu)
 
@@ -178,5 +142,5 @@ class ForecastActivity : AppCompatActivity() {
 
     fun units2String() = if (units == TemperatureUnit.CELSIUS) "ºC"
     else "F"
-
+    */
 }
