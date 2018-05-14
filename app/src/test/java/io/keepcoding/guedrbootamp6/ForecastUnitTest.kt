@@ -5,7 +5,7 @@ import org.junit.Assert.*
 import org.junit.Before
 
 
-class ForecastUnitTest {ç
+class ForecastUnitTest {
     lateinit var forecast: Forecast
 
     @Before
