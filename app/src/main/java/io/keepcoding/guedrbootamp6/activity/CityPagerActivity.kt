@@ -11,7 +11,7 @@ import android.view.MenuItem
 import io.keepcoding.guedrbootamp6.R
 import io.keepcoding.guedrbootamp6.fragment.ForecastFragment
 import io.keepcoding.guedrbootamp6.model.Cities
-import kotlinx.android.synthetic.main.activity_city_page.*
+import kotlinx.android.synthetic.main.activity_city_pager.*
 
 class CityPagerActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class CityPagerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_city_page)
+        setContentView(R.layout.activity_city_pager)
 
         toolbar.setLogo(R.mipmap.ic_launcher)
         setSupportActionBar(toolbar)

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import io.keepcoding.guedrbootamp6.R
+import io.keepcoding.guedrbootamp6.fragment.CityListFragment
 
 class ForecastActivity : AppCompatActivity() {
 
@@ -15,6 +16,16 @@ class ForecastActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forecast)
+
+        // Comprobamos primero que no tenemos ya añadido el fragment a nuestra jerarquía
+        if (supportFragmentManager.findFragmentById(R.id.city_list_fragment)  == null) {
+            val fragment: CityListFragment = CityListFragment.newInstance()
+
+            // Añadir dinámicamente el fragment a la interfaz
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.city_list_fragment, fragment)
+                    .commit()
+        }
 
         // Restore state
         // ------------------------------------------
@@ -57,7 +68,7 @@ class ForecastActivity : AppCompatActivity() {
         }
         */
 
-        Log.v(TAG,"Han llamado a onCreate" )
+        // Log.v(TAG,"Han llamado a onCreate" )
     }
 
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {

@@ -6,10 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.ForecastActivity">
 
+    <!--
     <fragment
         android:id="@+id/forecast_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="io.keepcoding.guedrbootamp6.fragment.ForecastFragment" />
+        android:name="io.keepcoding.guedrbootamp6.fragment.CityListFragment" />
+    -->
+
+    <!-- Hueco para meter un fragment de forma dinámica -->
+    <FrameLayout
+        android:id="@+id/city_list_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>
