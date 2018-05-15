@@ -12,7 +12,7 @@
         <activity android:name=".activity.ForecastActivity">
         </activity>
         <activity android:name=".activity.SettingsActivity"></activity>
-        <activity android:name=".activity.CityPageActivity">
+        <activity android:name=".activity.CityPageActivity" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
