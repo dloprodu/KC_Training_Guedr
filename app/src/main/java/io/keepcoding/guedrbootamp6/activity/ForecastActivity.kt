@@ -6,8 +6,9 @@ import android.os.PersistableBundle
 import android.util.Log
 import io.keepcoding.guedrbootamp6.R
 import io.keepcoding.guedrbootamp6.fragment.CityListFragment
+import io.keepcoding.guedrbootamp6.model.City
 
-class ForecastActivity : AppCompatActivity() {
+class ForecastActivity : AppCompatActivity(), CityListFragment.OnCitySelectedListener {
 
     companion object {
         val TAG = ForecastActivity::class.java.canonicalName
@@ -74,6 +75,11 @@ class ForecastActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState?.putInt("Numero", 3)
+    }
+
+    override fun onCitySelected(city: City, position: Int) {
+        val intent = CityPagerActivity.intent(this, position)
+        startActivity(intent)
     }
 
     /* Moved to ForecastFragment

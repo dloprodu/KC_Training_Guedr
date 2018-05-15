@@ -1,6 +1,8 @@
 package io.keepcoding.guedrbootamp6.fragment
 
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -27,6 +29,8 @@ class CityListFragment : Fragment() {
         fun newInstance() = CityListFragment()
     }
 
+    private var onCitySelectedListener: OnCitySelectedListener? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -48,6 +52,36 @@ class CityListFragment : Fragment() {
                 cities.toArray())
 
         city_list.adapter = adapter
+
+        // city_list.setOnItemClickListener { adapterView, view, index, l -> }
+        city_list.setOnItemClickListener { _, _, index, _ ->
+            onCitySelectedListener?.onCitySelected(cities[index], index)
+        }
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        commonOnAttach(context as Activity)
+    }
+
+    override fun onAttach(activity: Activity?) {
+        super.onAttach(activity)
+        commonOnAttach(activity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+    }
+
+    fun commonOnAttach(activity: Activity?) {
+        if (activity is OnCitySelectedListener) {
+            onCitySelectedListener = activity
+        } else {
+            onCitySelectedListener = null
+        }
+    }
+
+    interface OnCitySelectedListener {
+        fun onCitySelected(city: City, position: Int)
+    }
 }

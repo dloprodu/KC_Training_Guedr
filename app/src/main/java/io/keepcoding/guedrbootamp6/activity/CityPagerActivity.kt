@@ -1,6 +1,8 @@
 package io.keepcoding.guedrbootamp6.activity
 
 import android.app.Fragment
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v13.app.FragmentPagerAdapter
@@ -11,9 +13,22 @@ import android.view.MenuItem
 import io.keepcoding.guedrbootamp6.R
 import io.keepcoding.guedrbootamp6.fragment.ForecastFragment
 import io.keepcoding.guedrbootamp6.model.Cities
+import io.keepcoding.guedrbootamp6.model.City
 import kotlinx.android.synthetic.main.activity_city_pager.*
 
 class CityPagerActivity : AppCompatActivity() {
+
+    companion object {
+        val EXTRA_CITY = "EXTRA_CITY"
+
+        fun intent(context: Context, cityIndex: Int): Intent {
+            val intent = Intent(context, CityPagerActivity::class.java)
+
+            intent.putExtra(EXTRA_CITY, cityIndex)
+
+            return intent
+        }
+    }
 
     private val cities = Cities()
 
@@ -48,12 +63,18 @@ class CityPagerActivity : AppCompatActivity() {
             }
         })
 
-        updateCityInfo(0)
+        val initialCityIndex = intent.getIntExtra(EXTRA_CITY, 0)
+        moveToCity(initialCityIndex)
+        updateCityInfo(initialCityIndex)
     }
 
     private fun updateCityInfo(position: Int) {
         //toolbar.title = cities.getCity(position).name
         supportActionBar?.title = cities.getCity(position).name
+    }
+
+    private fun moveToCity(position: Int) {
+       view_pager.currentItem = position
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
