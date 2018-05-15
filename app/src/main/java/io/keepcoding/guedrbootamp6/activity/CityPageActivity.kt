@@ -4,6 +4,7 @@ import android.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v13.app.FragmentPagerAdapter
+import android.support.v4.view.PagerAdapter
 import android.view.Menu
 import android.view.MenuItem
 import io.keepcoding.guedrbootamp6.R
@@ -54,5 +55,17 @@ class CityPageActivity : AppCompatActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        super.onPrepareOptionsMenu(menu)
+
+        val previousMenu: MenuItem? = menu?.findItem(R.id.previous)
+        val nextMenu: MenuItem? = menu?.findItem(R.id.next)
+
+        val adapter: PagerAdapter = view_pager.adapter!!
+        previousMenu?.isEnabled = view_pager.currentItem > 0
+        nextMenu?.isEnabled = view_pager.currentItem < adapter.count - 1
+        return true
     }
 }
