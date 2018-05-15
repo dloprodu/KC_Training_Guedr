@@ -36,8 +36,9 @@ class CityPagerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city_pager)
 
-        toolbar.setLogo(R.mipmap.ic_launcher)
+        //toolbar.setLogo(R.mipmap.ic_launcher)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val adapter = object: FragmentPagerAdapter(fragmentManager) {
             override fun getItem(position: Int): Fragment {
@@ -91,6 +92,10 @@ class CityPagerActivity : AppCompatActivity() {
         }
         R.id.next -> {
             view_pager.currentItem = view_pager.currentItem + 1
+            true
+        }
+        android.R.id.home -> { // han llamado a la flecha de back
+            finish()
             true
         }
         else -> super.onOptionsItemSelected(item)
