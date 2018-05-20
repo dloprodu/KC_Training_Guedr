@@ -1,7 +1,7 @@
 package io.keepcoding.guedrbootamp6.fragment
 
 import android.app.Activity
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -124,7 +124,7 @@ class ForecastFragment: Fragment() {
                     else getString(R.string.user_select_fahrenhiet)
 
                     // Toast.makeText(this, newUnitsString, Toast.LENGTH_LONG).show()
-                    Snackbar.make(view, newUnitsString, Snackbar.LENGTH_LONG)
+                    Snackbar.make(view!!, newUnitsString, Snackbar.LENGTH_LONG)
                             .setAction("Deshacer" ) {
                                 PreferenceManager.getDefaultSharedPreferences(activity)
                                         .edit()
