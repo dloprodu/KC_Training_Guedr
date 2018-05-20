@@ -12,6 +12,7 @@ import io.keepcoding.guedrbootamp6.activity.SettingsActivity
 import io.keepcoding.guedrbootamp6.model.City
 import io.keepcoding.guedrbootamp6.model.Forecast
 import io.keepcoding.guedrbootamp6.model.TemperatureUnit
+import kotlinx.android.synthetic.main.content_forecast.*
 import kotlinx.android.synthetic.main.fragment_forecast.*
 
 class ForecastFragment: Fragment() {
@@ -31,6 +32,10 @@ class ForecastFragment: Fragment() {
         }
     }
 
+    private enum class VIEW_INDEX(val index: Int) {
+        LOADING(0), FORECAST(1)
+    }
+
     val REQUEST_SETTINGS = 1
     val PREFERENCE_UNITS = "UNITS"
 
@@ -45,12 +50,12 @@ class ForecastFragment: Fragment() {
             field = value
 
             if (value != null) {
-                forecast_image.setImageResource(value.icon)
-                forecast_description.text = value.description
+                forecast_image?.setImageResource(value.icon)
+                forecast_description?.text = value.description
 
                 updateTemperatureView()
 
-                humidity.text = getString(R.string.humidity_temp_format, value.humidity)
+                humidity?.text = getString(R.string.humidity_temp_format, value.humidity)
             }
         }
 
@@ -75,10 +80,17 @@ class ForecastFragment: Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (arguments != null) {
-            val city: City = arguments.getSerializable(ARG_CITY) as City
+        // le decimos al ViewSwitcher que muestre la primera vista
+        view_switcher.setInAnimation(activity, android.R.anim.fade_in)
+        view_switcher.setOutAnimation(activity, android.R.anim.fade_out)
+        view_switcher.displayedChild = VIEW_INDEX.LOADING.index;
+
+        view?.postDelayed({
+            val city: City = arguments?.getSerializable(ARG_CITY) as City
             forecast = city.forecast
-        }
+
+            view_switcher.displayedChild = VIEW_INDEX.FORECAST.index
+        }, resources.getInteger(R.integer.default_delay).toLong())
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
