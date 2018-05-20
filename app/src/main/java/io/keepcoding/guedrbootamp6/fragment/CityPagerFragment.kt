@@ -78,7 +78,7 @@ class CityPagerFragment: Fragment() {
         }
     }
 
-    private fun moveToCity(position: Int) {
+    fun moveToCity(position: Int) {
         view_pager.currentItem = position
     }
 

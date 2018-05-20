@@ -2,6 +2,7 @@ package io.keepcoding.guedrbootamp6.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -26,6 +27,16 @@ class CityPagerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city_pager)
+
+        // Chuleta para saber detalles del dispositivo real (o emulador) que está ejecutando
+        val metrics = resources.displayMetrics
+        val width = metrics.widthPixels
+        val height = metrics.heightPixels
+        val dpWidth = (width / metrics.density).toInt()
+        val dpHeight = (height / metrics.density).toInt()
+        val model = Build.MODEL
+        val androidVersion = Build.VERSION.SDK_INT
+
 
         //toolbar.setLogo(R.mipmap.ic_launcher)
         setSupportActionBar(toolbar)

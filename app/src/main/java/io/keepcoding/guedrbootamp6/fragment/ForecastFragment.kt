@@ -150,8 +150,8 @@ class ForecastFragment: Fragment() {
     // Aquí actualizaremos la interfaz con las temperaturas
     fun updateTemperatureView() {
         val unitsString = units2String()
-        max_temp.text = getString(R.string.max_temp_format, forecast?.getMaxTemp(units), unitsString)
-        min_temp.text = getString(R.string.min_temp_format, forecast?.getMinTemp(units), unitsString)
+        max_temp?.text = getString(R.string.max_temp_format, forecast?.getMaxTemp(units), unitsString)
+        min_temp?.text = getString(R.string.min_temp_format, forecast?.getMinTemp(units), unitsString)
     }
 
     fun units2String() = if (units == TemperatureUnit.CELSIUS) "ºC"
