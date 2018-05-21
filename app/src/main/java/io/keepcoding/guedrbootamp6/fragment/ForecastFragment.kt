@@ -6,13 +6,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import io.keepcoding.guedrbootamp6.R
+import io.keepcoding.guedrbootamp6.activity.DetailActivity
 import io.keepcoding.guedrbootamp6.activity.SettingsActivity
 import io.keepcoding.guedrbootamp6.adapter.ForecastRecyclerViewAdapter
 import io.keepcoding.guedrbootamp6.getTemperatureUnits
+import io.keepcoding.guedrbootamp6.model.Cities
 import io.keepcoding.guedrbootamp6.model.City
 import io.keepcoding.guedrbootamp6.model.Forecast
 import io.keepcoding.guedrbootamp6.model.TemperatureUnit
@@ -54,8 +58,11 @@ class ForecastFragment: Fragment() {
             field = value
 
             if (value != null) {
-                forecast_list.adapter = ForecastRecyclerViewAdapter(value)
+                val adapter = ForecastRecyclerViewAdapter(value)
 
+                forecast_list.adapter = adapter
+
+                setRecyclerViewClickListener()
             }
         }
 
@@ -84,7 +91,7 @@ class ForecastFragment: Fragment() {
 
             // Configuramos el RecycleView.
             // - Primero decimos como se visualizan sus elementos
-            forecast_list.layoutManager = LinearLayoutManager(activity)
+            forecast_list.layoutManager = GridLayoutManager(activity, resources.getInteger( R.integer.forecast_columns )) // LinearLayoutManager(activity)
 
             // - Le decimos quien es el que anima al RecyclerView
             forecast_list.itemAnimator = DefaultItemAnimator()
@@ -158,9 +165,30 @@ class ForecastFragment: Fragment() {
         }
     }
 
+    fun setRecyclerViewClickListener() {
+        // Si alguien pulsa un elemento del RecyclerView, nos queremos enterar aquí
+        val adapter = forecast_list?.adapter as? ForecastRecyclerViewAdapter
+        adapter?.onClickListener = View.OnClickListener {
+            // Alguien ha pulsado un elemento del RecyclerView
+            val forecastIndex = forecast_list.getChildAdapterPosition(it)
+            val city = arguments?.getSerializable(ARG_CITY) as City
+            val cityIndex = Cities.getIndex(city)
+
+            // Opciones especiales para navegar con vistas comunes
+            val animationOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity,
+                    it,
+                    getString(R.string.transition_to_detail)
+            )
+
+            startActivity(DetailActivity.intent(activity!!, cityIndex, forecastIndex), animationOptions.toBundle())
+        }
+    }
+
     fun updateTemperatureView() {
         if (forecast != null) {
             forecast_list?.adapter = ForecastRecyclerViewAdapter(forecast!!)
+            setRecyclerViewClickListener()
         }
     }
 }

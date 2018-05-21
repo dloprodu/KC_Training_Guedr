@@ -33,6 +33,8 @@ object Cities {
 
     fun getCity(index: Int) = cities[index]
 
+    fun getIndex(city: City) = cities.indexOf(city)
+
     operator fun get(index: Int) = cities[index]
 
     fun toArray() = cities.toTypedArray()

@@ -10,11 +10,19 @@ import android.widget.TextView
 import io.keepcoding.guedrbootamp6.R
 import io.keepcoding.guedrbootamp6.getTemperatureUnits
 import io.keepcoding.guedrbootamp6.model.TemperatureUnit
+import io.keepcoding.guedrbootamp6.units2String
+import io.keepcoding.guedrbootamp6.forecastDay
 
 class ForecastRecyclerViewAdapter(private val forescast: List<Forecast>)
     : RecyclerView.Adapter<ForecastRecyclerViewAdapter.ForecastViewHolder>() {
+
+    var onClickListener: View.OnClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ForecastViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.content_forecast, parent, false)
+
+        view.setOnClickListener(onClickListener)
+
         return  ForecastViewHolder(view)
     }
 
@@ -52,18 +60,5 @@ class ForecastRecyclerViewAdapter(private val forescast: List<Forecast>)
             maxTemp?.text = context.getString(R.string.max_temp_format, forecast.getMaxTemp(temperatureUnit), unitsString)
             minTemp?.text = context.getString(R.string.min_temp_format, forecast.getMinTemp(temperatureUnit), unitsString)
         }
-
-        fun units2String(units: TemperatureUnit) = if (units == TemperatureUnit.CELSIUS) "ºC"
-        else "F"
-
-        fun forecastDay(index: Int) = when(index) {
-            0 -> "Hoy"
-            1 -> "Mañana"
-            2 -> "Pasado mañana"
-            3 -> "Pasado pasado mañana"
-            4 -> "Pasado pasado pasado mañana"
-            else -> "Dia de la marmota"
-        }
     }
-
 }
