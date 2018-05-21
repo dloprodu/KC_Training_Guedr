@@ -6,9 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import io.keepcoding.guedrbootamp6.R
 import io.keepcoding.guedrbootamp6.activity.SettingsActivity
+import io.keepcoding.guedrbootamp6.adapter.ForecastRecyclerViewAdapter
 import io.keepcoding.guedrbootamp6.model.City
 import io.keepcoding.guedrbootamp6.model.Forecast
 import io.keepcoding.guedrbootamp6.model.TemperatureUnit
@@ -45,17 +48,13 @@ class ForecastFragment: Fragment() {
     //    findViewById<ImageView>(R.id.forecastImage)
     //}
 
-    var forecast: Forecast? = null
+    var forecast: List<Forecast>? = null
         set(value) {
             field = value
 
             if (value != null) {
-                forecast_image?.setImageResource(value.icon)
-                forecast_description?.text = value.description
+                forecast_list.adapter = ForecastRecyclerViewAdapter(value)
 
-                updateTemperatureView()
-
-                humidity?.text = getString(R.string.humidity_temp_format, value.humidity)
             }
         }
 
@@ -86,6 +85,18 @@ class ForecastFragment: Fragment() {
         view_switcher.displayedChild = VIEW_INDEX.LOADING.index;
 
         view?.postDelayed({
+            // Aqui simulamos que ya nos hemos bajado la información del tiempo
+
+            // Configuramos el RecycleView.
+            // - Primero decimos como se visualizan sus elementos
+            forecast_list.layoutManager = LinearLayoutManager(activity)
+
+            // - Le decimos quien es el que anima al RecyclerView
+            forecast_list.itemAnimator = DefaultItemAnimator()
+
+            // - Por último tenemos que decirle los datos que van a rellenar el RecyclerView. Eso
+            //   es tarea del setter del forecast
+
             val city: City = arguments?.getSerializable(ARG_CITY) as City
             forecast = city.forecast
 
@@ -159,13 +170,9 @@ class ForecastFragment: Fragment() {
         }
     }
 
-    // Aquí actualizaremos la interfaz con las temperaturas
     fun updateTemperatureView() {
-        val unitsString = units2String()
-        max_temp?.text = getString(R.string.max_temp_format, forecast?.getMaxTemp(units), unitsString)
-        min_temp?.text = getString(R.string.min_temp_format, forecast?.getMinTemp(units), unitsString)
+        if (forecast != null) {
+            forecast_list.adapter = ForecastRecyclerViewAdapter(forecast!!)
+        }
     }
-
-    fun units2String() = if (units == TemperatureUnit.CELSIUS) "ºC"
-    else "F"
 }
