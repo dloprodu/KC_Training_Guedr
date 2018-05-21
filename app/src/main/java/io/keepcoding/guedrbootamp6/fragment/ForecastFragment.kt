@@ -12,9 +12,11 @@ import android.view.*
 import io.keepcoding.guedrbootamp6.R
 import io.keepcoding.guedrbootamp6.activity.SettingsActivity
 import io.keepcoding.guedrbootamp6.adapter.ForecastRecyclerViewAdapter
+import io.keepcoding.guedrbootamp6.getTemperatureUnits
 import io.keepcoding.guedrbootamp6.model.City
 import io.keepcoding.guedrbootamp6.model.Forecast
 import io.keepcoding.guedrbootamp6.model.TemperatureUnit
+import io.keepcoding.guedrbootamp6.setTemperatureUnits
 import kotlinx.android.synthetic.main.content_forecast.*
 import kotlinx.android.synthetic.main.fragment_forecast.*
 
@@ -40,7 +42,6 @@ class ForecastFragment: Fragment() {
     }
 
     val REQUEST_SETTINGS = 1
-    val PREFERENCE_UNITS = "UNITS"
 
     //var forecastImage: ImageView? = null
     //lateinit var forecastImage: ImageView
@@ -56,12 +57,6 @@ class ForecastFragment: Fragment() {
                 forecast_list.adapter = ForecastRecyclerViewAdapter(value)
 
             }
-        }
-
-    val units: TemperatureUnit
-        get() = when(PreferenceManager.getDefaultSharedPreferences(activity).getInt(PREFERENCE_UNITS, TemperatureUnit.CELSIUS.ordinal)) {
-            TemperatureUnit.CELSIUS.ordinal -> TemperatureUnit.CELSIUS
-            else                            -> TemperatureUnit.FAHRENHEIT
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,7 +109,7 @@ class ForecastFragment: Fragment() {
         when (item?.itemId) {
             R.id.menu_show_settings -> {
                 startActivityForResult(
-                        SettingsActivity.intent(activity, units),
+                        SettingsActivity.intent(activity, getTemperatureUnits(activity)),
                         REQUEST_SETTINGS )
 
                 return true
@@ -132,13 +127,10 @@ class ForecastFragment: Fragment() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     // Volvemos de settings con datos sobre las unidades elegidas por el usuario
                     val newUnits = data.getSerializableExtra(SettingsActivity.EXTRA_UNITS) as TemperatureUnit
-                    val oldUnit = units
+                    val oldUnit = getTemperatureUnits(activity)
 
                     // Guardamos las preferencias del usuario
-                    PreferenceManager.getDefaultSharedPreferences(activity)
-                            .edit()
-                            .putInt(PREFERENCE_UNITS, newUnits.ordinal)
-                            .apply()
+                    setTemperatureUnits(activity, newUnits)
 
                     // Actualizo la interfaz con las nuevas unidades
                     updateTemperatureView()
@@ -149,11 +141,7 @@ class ForecastFragment: Fragment() {
                     // Toast.makeText(this, newUnitsString, Toast.LENGTH_LONG).show()
                     Snackbar.make(view!!, newUnitsString, Snackbar.LENGTH_LONG)
                             .setAction("Deshacer" ) {
-                                PreferenceManager.getDefaultSharedPreferences(activity)
-                                        .edit()
-                                        .putInt(PREFERENCE_UNITS, oldUnit.ordinal)
-                                        .apply()
-
+                                setTemperatureUnits(activity, oldUnit)
                                 updateTemperatureView()
                             }
                             .show()
@@ -172,7 +160,7 @@ class ForecastFragment: Fragment() {
 
     fun updateTemperatureView() {
         if (forecast != null) {
-            forecast_list.adapter = ForecastRecyclerViewAdapter(forecast!!)
+            forecast_list?.adapter = ForecastRecyclerViewAdapter(forecast!!)
         }
     }
 }

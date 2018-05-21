@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import io.keepcoding.guedrbootamp6.R
+import io.keepcoding.guedrbootamp6.getTemperatureUnits
 import io.keepcoding.guedrbootamp6.model.TemperatureUnit
 
 class ForecastRecyclerViewAdapter(private val forescast: List<Forecast>)
@@ -20,7 +21,7 @@ class ForecastRecyclerViewAdapter(private val forescast: List<Forecast>)
     override fun getItemCount() = forescast.count()
 
     override fun onBindViewHolder(holder: ForecastViewHolder?, position: Int) {
-        holder?.bindForecast(forescast[position], TemperatureUnit.CELSIUS, position)
+        holder?.bindForecast(forescast[position], getTemperatureUnits(holder.context), position)
     }
 
     inner class ForecastViewHolder(itemsView: View): RecyclerView.ViewHolder(itemsView) {
